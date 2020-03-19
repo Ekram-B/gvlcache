@@ -1,12 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/ezoic/ezcache"
 	gvlcachev2 "github.com/ezoic/gvlcache/gvlcacheV2"
+	l4g "github.com/ezoic/log4go"
 	"github.com/go-chi/chi"
 )
 
@@ -23,7 +22,9 @@ type ServerConfig struct {
 }
 
 func main() {
-	fmt.Println("Starting server")
+	// 0. Set up logging
+	l4g.LoadConfiguration("/var/go/src/github.com/ezoic/gvlcache/l4gconfig.xml")
+
 	// 1. Start memcache
 	ezcache.InitializeMemcachedForRegion()
 	// 2. Load configuration file for server
@@ -33,7 +34,8 @@ func main() {
 	r.Get("/", HandleRoot)
 	r.Get("/GVLV2", gvlcachev2.HandleRequestForGVLVersion2)
 	r.Post("/GVLV2Cache/bustCache", gvlcachev2.HandleRequestForBustingCache)
-	log.Fatal(http.ListenAndServe(":8054", r))
+	http.ListenAndServe(":8054", r)
+
 }
 
 // HandleRoot is a handler function for the root server that is used for testing

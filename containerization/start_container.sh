@@ -11,4 +11,4 @@ DOCKERFILEARG="-f docker-compose.yml"
 # Darwin = OSX
 
 echo docker-compose $DOCKERFILEARG up -d
-docker-compose $DOCKERFILEARG up -d
+docker-compose $DOCKERFILEARG up -d --remove-orphans

@@ -33,10 +33,6 @@ services:
     shm_size: '2gb'
     command: go run /var/go/src/github.com/ezoic/gvlcache/IAB-server
  
-  memcached:
-    image: bitnami/memcached:latest
-    ports:
-    - "8056:8056"
     
 
  
