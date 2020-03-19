@@ -119,11 +119,11 @@ type GVLVersionTwoStack struct {
 
 func (gvl *GVLVersionTwoValue) getGVLVersionTwoValueFromCache() bool {
 
-	// err := ezcache.LoadKeyObject("middleton", gvlCacheKey, *gvl)
-	// if err == nil {
-	// 	log.Print("Successfully loaded GVL value from the cache!")
-	// 	return true
-	// }
+	err := ezcache.LoadKeyObject("middleton", gvlCacheKey, *gvl)
+	if err == nil {
+		log.Print("Successfully loaded GVL value from the cache!")
+		return true
+	}
 	//  There was an error returned from trying to retreive the cached value -
 	//  possibly b/c there wasn't a cached value that already existed
 	return false
