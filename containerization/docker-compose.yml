@@ -1,0 +1,46 @@
+version: '3.6'
+
+services:
+  gvlcache:
+    build: .
+    container_name: ezgvlcache_1
+    ports:
+      - "8054:8054"
+    restart: always
+    volumes:
+      - ~/dockercustom:/etc/custom
+      - ~/go:/var/go
+      - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
+    cap_add:
+      - SYS_PTRACE
+    shm_size: '2gb'
+    command: go run /var/go/src/github.com/ezoic/gvlcache/
+    
+  iab_dummy_server:
+    build: .
+    container_name: iab_dummy_server_1
+    ports:  
+    - "8055:8055"
+    restart: always
+    volumes:
+      - ~/dockercustom:/etc/custom
+      - ~/go:/var/go
+      - ~/.aws:/root/.aws
+      - ~/.ssh:/root/.ssh
+    cap_add:
+      - SYS_PTRACE
+    shm_size: '2gb'
+    command: go run /var/go/src/github.com/ezoic/gvlcache/IAB-server
+ 
+  memcached:
+    image: bitnami/memcached:latest
+    ports:
+    - "8056:8056"
+    
+
+ 
+        
+
+
+
